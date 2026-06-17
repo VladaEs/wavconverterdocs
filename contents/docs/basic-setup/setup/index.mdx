@@ -1,80 +1,188 @@
----
-title: Setup
-description: Setting up and configuring your documentation project
-keywords:
-  ["setup", "configuration", "layout", "Google", "SEO", "nextjs", "documents"]
----
 
-Setting up your new documentation project is straightforward. Most of the essential project settings can be configured within the `settings` folder.
 
-## Settings
+The MFC MP3/WAV Converter project is designed around a modular audio processing pipeline. Most project configuration is located in the codec, audio, and application settings classes.
 
-This section provides the core settings for your documentation site, such as defining the site's URL, site icon and title.
+## Codec Settings
 
-```tsx showLineNumbers
-export const url = ""                 // The URL for your documentation site
-export const siteicon = ""            // Icon displayed next to the site name in the header
-export const sitename = ""            // Title of your documentation site
+This section contains the primary audio codec configuration used during encoding and decoding.
+
+```cpp showLineNumbers
+static constexpr int windowSize = 2048;   // MDCT window size
+static constexpr int Q = 127;             // Quantization coefficient
 ```
 
-## Google Tags
+These values directly affect:
 
-This section allows you to integrate Google Tag Manager into your documentation project. You can add your GTM code and configure whether it's connected.
+* Compression quality
+* Frequency resolution
+* File size
+* Reconstruction accuracy
 
-```tsx showLineNumbers
-export const gtm = ""                 // Add your Google Tag Manager code here
-export const gtmconnected = true      // Set to true if GTM is connected, otherwise set to false
+## Audio Configuration
+
+The application currently supports PCM WAV processing and MP3 playback.
+
+```cpp showLineNumbers
+Sample Rate     : 44100 Hz
+Channels        : Mono / Stereo
+Bits Per Sample : 16-bit PCM
 ```
 
-## Search Engine
+Supported formats:
 
-Configure essential SEO settings to ensure your documentation site is optimized for search engines. This includes meta descriptions, keywords and social media sharing details like images and alt text.
+| Format | Read | Play | Convert |
+| ------ | ---- | ---- | ------- |
+| WAV    | ✓    | ✓    | ✓       |
+| MP3    | ✓    | ✓    | ✗       |
+| MUC    | ✓    | ✓    | ✓       |
 
-```tsx showLineNumbers
-export const description = ""         // Description of your documentation site for SEO
-export const keywords = ["", ""]      // List of SEO keywords for your documentation site
-export const urlimage = ""            // The URL of the image used when sharing on social media)
-export const imagealt = ""            // Alt text for shared images, helpful for screen readers
-export const twitterhandle = ""       // Your company’s Twitter handle for social sharing
+## MDCT Processing
+
+The custom codec uses a Modified Discrete Cosine Transform (MDCT) to convert audio samples into the frequency domain.
+
+```cpp showLineNumbers
+Input Samples
+    ↓
+Hann Window
+    ↓
+MDCT
+    ↓
+Quantization
+    ↓
+MUC File
 ```
 
-## Footer Branding
+During decoding:
 
-The footer settings allow you to customize the company information displayed at the bottom of the site. You can add the company name and the URL that the name will link to.
-
-```tsx showLineNumbers
-export const companyname = ""         // The company name displayed in the copyright section
-export const companylink = ""         // The URL your company name should link to
+```cpp showLineNumbers
+MUC File
+    ↓
+Dequantization
+    ↓
+IMDCT
+    ↓
+Overlap Add
+    ↓
+PCM Audio
 ```
 
-## General Layout
+## Window Function
 
-The layout settings control the appearance and functionality of various elements of the documentation site, such as branding, the right sidebar, feedback options, table of contents, and scroll-to-top functionality.
+The encoder applies a Hann window before each MDCT operation.
 
-```tsx showLineNumbers
-export const branding = true          // Set to true to display our branding elements
-export const rightsidebar = true      // Set to true to enable the right sidebar with feedback, table of contents and scroll-to-top
-export const feedbackedit = true      // Control to enable/disable feedback on GitHub
-export const tableofcontent = true    // Control to enable/disable the generated table of contents
-export const totopscroll = true       // Control to enable/disable scroll-to-top button
+```cpp showLineNumbers
+float w =
+    0.5f *
+    (1.0f - cos(
+        2.0f * M_PI * i /
+        (windowSize - 1)));
 ```
 
-## Github Control
+The window reduces spectral leakage and improves reconstruction quality.
 
-If your MDX files are hosted on GitHub, you can configure the project to load documents directly from there. This option can be useful for syncing documentation updates directly with your repository.
+## Quantization
 
-```tsx showLineNumbers
-export const loadfromgithub = false   // Set to true to load your MDX documents directly from GitHub
+Frequency coefficients are compressed using band-based quantization and scale factors.
+
+```cpp showLineNumbers
+output[i] =
+    (int)(
+        input[i] /
+        maxVal *
+        Q);
 ```
+
+Each frequency band stores:
+
+```cpp showLineNumbers
+Scale Factor
+Quantized Coefficients
+```
+
+This significantly reduces storage requirements.
+
+## Spectrum Analyzer
+
+The player includes a real-time frequency spectrum visualizer.
+
+```cpp showLineNumbers
+Current Position
+    ↓
+Audio Window
+    ↓
+MDCT
+    ↓
+Spectrum Data
+    ↓
+GDI Visualization
+```
+
+The visualizer updates during playback using timer-based refresh events.
+
+## Project Components
+
+| Component          | Description                       |
+| ------------------ | --------------------------------- |
+| encoder.h          | Audio encoding pipeline           |
+| decoder.h          | Audio decoding pipeline           |
+| wavfile.h          | WAV file parsing and PCM handling |
+| mucfile.h          | Custom MUC container format       |
+| musicplayerdlg.cpp | Main playback interface           |
+| config.h           | Codec configuration               |
+| helpers.h          | Utility functions                 |
+| controller         | Music library management          |
+
+## GitHub Repository
+
+The latest source code is available on GitHub:
+
+```text
+https://github.com/VladaEs/MFCMP3WAVConverter
+```
+
+## Debug Configuration
+
+The project is primarily developed using:
+
+```text
+Debug x86
+```
+
+This configuration is recommended for development, debugging, and testing codec functionality.
+
+## Future Improvements
+
+Planned features include:
+
+* FFT-based visualization
+* Improved quantization strategies
+* Stereo coding support
+* Advanced psychoacoustic modeling
+* OpenGL spectrum rendering
+* MUC format optimization
 
 ## Project Structure
 
 <CardGrid>
   <Card
-    title="Navigation"
-    href="/docs/navigation"
-    icon="alignJustify"
+    title="MUC Codec"
+    href="/docs/muc-codec"
+    icon="cpu"
     variant="small"
-    description="Creating your navigation"
+    description="Custom audio compression format"
+  />
+  <Card
+    title="MDCT Algorithm"
+    href="/docs/mdct"
+    icon="activity"
+    variant="small"
+    description="Frequency transform implementation"
+  />
+  <Card
+    title="Spectrum Analyzer"
+    href="/docs/spectrum-analyzer"
+    icon="barChart3"
+    variant="small"
+    description="Real-time audio visualization"
   />
 </CardGrid>

@@ -1,52 +1,70 @@
 ---
+
 title: Installation
-description: This guide covers the installation of Documents and how to edit your new project.
-keywords: ["installation", "github", "node", "guide", "nextjs", "documents"]
----
+description: This guide covers the installation and setup of the MFC MP3/WAV Converter project.
+keywords: ["installation", "mfc", "c++", "wav", "mp3", "audio", "windows"]
+--------------------------------------------------------------------------
 
-To install and edit the Documents, you need to have several prerequisites in place. Here's a list of all the essential pre-requisites
-for setting up and working on this project.
+To build and run **MFC MP3/WAV Converter**, you need a Windows development environment with Visual Studio and the required C++ tools installed.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Frubixvi%2Frubix-documents&project-name=my-documents&repository-name=my-documents&demo-title=Documents&demo-description=This%20Document%20Starter%20Kit%20is%20developed%20with%20Next.js%2C%20Tailwind%20CSS%20and%20TypeScript.%20It%20serves%20as%20a%20flexible%20and%20scalable%20foundation%20for%20building%20documentation%20websites%20or%20content-driven%20projects.&demo-url=https%3A%2F%2Frubix-documents.vercel.app%2F&demo-image=https%3A%2F%2Fgithub.com%2Frubixvi%2Frubix-documents%2Fblob%2Fmain%2Fpublic%2Fscreens%2Fscreen-1.png)
+## Repository
+
+GitHub Repository:
+
+**https://github.com/VladaEs/MFCMP3WAVConverter**
 
 ## Prerequisites
 
 <Step>
-<StepItem title="System Requirements">
+<StepItem title="Operating System">
 
-- **Node.js:** Make sure you have Node.js installed. The project uses `pnpm`, which comes with Node.js. Install Node.js from here.
-- **NPM, PNPM or Yarn:** Since the project uses `pnpm` commands, ensure that pnpm is installed with Node.js. Alternatively, you can use Yarn if preferred.
-
-To verify installation, run:
-
-```bash
-node -v
-pnpm -v
-```
+* **Windows 10 / Windows 11**
+* Visual Studio development environment
 
 </StepItem>
+
+<StepItem title="Visual Studio">
+
+Install one of the following:
+
+* **Visual Studio 2022** (Recommended)
+* **Visual Studio 2019**
+
+Required workload:
+
+* **Desktop development with C++**
+* **MFC and ATL support**
+
+Verify your installation by creating a new MFC project.
+
+</StepItem>
+
 <StepItem title="Git">
-You need to have Git installed to clone the repository. Download Git from [here](https://git-scm.com/).
+
+You need Git installed to clone the repository.
 
 ```bash
 git --version
 ```
 
-</StepItem>
-<StepItem title="Code Editor">
-You’ll need a code editor to work on the project. Common options include:
+Download Git from:
 
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [WebStorm](https://www.jetbrains.com/webstorm/)
-- Any other text editor you prefer.
+```text
+https://git-scm.com/
+```
 
 </StepItem>
+
 <StepItem title="Required Knowledge">
-- **Next.js:** Since this is a Next.js project, you should be familiar with Next.js basics.
-- **React:** The project uses React, so understanding React's component structure and hooks will help.
-- **TypeScript:** The project is written in TypeScript, so you should have a basic understanding of it.
-- **Tailwind:** The project uses Tailwind CSS for styling.
-- **MDX:** Markdown + JSX (MDX) is used for writing documentation.
+
+Basic understanding of:
+
+* **C++**
+* **MFC (Microsoft Foundation Classes)**
+* **Windows API**
+* **Audio Processing**
+* **Digital Signal Processing (DSP)**
+* **Git**
 
 </StepItem>
 </Step>
@@ -55,107 +73,149 @@ You’ll need a code editor to work on the project. Common options include:
 
 <Step>
 <StepItem title="Clone the Repository">
-First, clone the repository to your local machine using Git:
+
+Clone the project from GitHub:
 
 ```bash
-git clone https://github.com/rubixvi/rubix-documents.git
+git clone https://github.com/VladaEs/MFCMP3WAVConverter.git
 ```
 
-Change the directory to the project folder:
+Open the project directory:
 
 ```bash
-cd rubix-documents
-```
-
-</StepItem>
-<StepItem title="Install Dependencies">
-Use npm to install all the required dependencies:
-
-```bash
-pnpm install
-```
-
-This will install all the dependencies listed in the package.json file, including:
-
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- MDX components
-- Other dependencies like ESLint, PostCSS, Husky, etc.
-
-</StepItem>
-
-<StepItem title="Running the Development Server">
-Start the development server by running:
-
-```bash
-pnpm run dev
-```
-
-This will start the local server, and you can open your browser at:
-
-```arduino
-http://localhost:3000
+cd MFCMP3WAVConverter
 ```
 
 </StepItem>
 
-<StepItem title="Editing the Project">
-  - **MDX Files:** Documentation content is stored in `contents/docs`.
-  - **Components:** You can edit React components in the `components/` directory.
-  - **Tailwind:** Tailwind styling are managed in `tailwind.config.ts` and `app/globals.css`.
+<StepItem title="Open the Solution">
 
-To make any changes to the project, open the files in your editor and modify them as needed.
+Open the Visual Studio solution file:
 
-<Note title="Required" type="danger">
-  The project's search functionality relies on the Husky's automation to build
-  `search-data/documents.json` ensure git commit is performed to generate this
-  file.
+```text
+diplom.sln
+```
+
+Visual Studio will automatically load all project dependencies and configuration files.
+
+</StepItem>
+
+<StepItem title="Build the Project">
+
+Select your preferred configuration:
+
+```text
+Debug x86
+```
+
+or
+
+```text
+Release x86
+```
+
+Then build the solution:
+
+```text
+Build → Build Solution
+```
+
+or use:
+
+```text
+Ctrl + Shift + B
+```
+
+</StepItem>
+
+<StepItem title="Run the Application">
+
+Start the application from Visual Studio:
+
+```text
+Debug → Start Debugging
+```
+
+or press:
+
+```text
+F5
+```
+
+</StepItem>
+</Step>
+
+## Project Features
+
+| Feature                | Description                                                      |
+| ---------------------- | ---------------------------------------------------------------- |
+| **MP3 Playback**       | Play MP3 audio files using Windows Media Player integration.     |
+| **WAV Playback**       | Load and play WAV audio files.                                   |
+| **Audio Conversion**   | Convert WAV files into the custom MUC format.                    |
+| **MUC Decoding**       | Decode MUC files back into WAV audio.                            |
+| **MDCT Transform**     | Modified Discrete Cosine Transform implementation.               |
+| **Quantization**       | Frequency-domain quantization using scale factors.               |
+| **Spectrum Analyzer**  | Real-time frequency visualization during playback.               |
+| **ID3 Metadata**       | Read metadata such as title, artist, and album artwork.          |
+| **Custom Audio Codec** | Experimental audio compression format developed for the project. |
+
+## Project Structure
+
+```text
+diplom/
+│
+├── encoder.h
+├── decoder.h
+├── wavfile.h
+├── mucfile.h
+├── musicplayerdlg.cpp
+├── musicplayerdlg.h
+├── config.h
+│
+├── resources/
+│
+└── diplom.sln
+```
+
+## Development Notes
+
+<Note title="Debug Configuration" type="warning">
+The project is primarily developed and tested using the Debug x86 configuration. Some Release configurations may require additional optimization fixes.
 </Note>
 
-</StepItem>
-<StepItem title="Building for Production">
-Once you’ve made your changes and want to build the project for production:
+<Note title="Audio Processing" type="info">
+The custom MUC codec uses MDCT, quantization, dequantization, windowing functions, and overlap-add reconstruction for audio compression and playback.
+</Note>
 
-```bash
-pnpm run build
+## Building for Release
+
+To create an optimized build:
+
+```text
+Build → Configuration Manager
 ```
 
-This will generate a production-ready build of the app.
+Select:
 
-</StepItem>
-<StepItem title="Running Production Server">
-To run the production server:
-
-```bash
-pnpm run start
+```text
+Release
 ```
 
-The production app will be available at:
+and rebuild the solution.
 
-```arduino
-http://localhost:3000
-```
+## Troubleshooting
 
-</StepItem>
-</Step>
+| Problem                    | Solution                                                    |
+| -------------------------- | ----------------------------------------------------------- |
+| Project won't build        | Verify MFC support is installed in Visual Studio.           |
+| Missing headers            | Ensure all project files were cloned correctly.             |
+| Audio doesn't play         | Check Windows Media Player components are available.        |
+| Spectrum not visible       | Verify playback is active and MDCT data is being generated. |
+| Conversion output is noisy | Check MDCT, quantization, and overlap-add implementation.   |
 
-## Optional
+## Additional Resources
 
-<Step>
-<StepItem title="Deploying to Vercel">
-This project is optimized for Vercel deployment. To deploy to Vercel:
-
-- Go to [vercel.com](https://vercel.com/) and sign up.
-- Link your GitHub repository and deploy the project.
-- Vercel will handle the build process for you automatically.
-</StepItem>
-<StepItem title="Linting and Pre-commit Hooks">
-The project uses ESLint for linting and Husky for Git hooks. These tools are configured automatically, but you can customize them in `.eslintrc.json` and `.husky` directories.
-</StepItem>
-</Step>
-
-## Important Information
-
-The project's search functionality relies on the Husky's automation to build `search-data/documents.json` ensure git commit is performed to generate this file.
+* GitHub Repository: https://github.com/VladaEs/MFCMP3WAVConverter
+* Microsoft MFC Documentation
+* Windows Media Player SDK
+* MDCT Audio Compression References

@@ -1,81 +1,81 @@
----
-title: Introduction
-description: This section provides an overview of how to get started with the Documents, Next.js Document Starter Kit.
-keywords: ["introduction", "guide", "nextjs", "documents"]
----
+## MUC Audio Codec
 
-![Banner](/images/banner.png "Documents")
+**MUC Audio Codec** is a custom audio compression project built in **C++**. It implements a complete audio processing pipeline including WAV parsing, frequency-domain compression, custom file formats, and audio playback.
 
-## Documents
-
-**Documents** is a lightweight, modular starter kit built with **Next.js**, **React**, **Tailwind CSS**, and **TypeScript**. It’s designed to help you 
-launch structured, professional documentation without spending time on boilerplate.
-
-Whether you're building product manuals, internal systems guides, or dev documentation, Documents gives you a clean foundation that’s easy to 
-extend and maintain.
+Whether you're interested in digital signal processing, codec development, or custom media formats, MUC provides a practical implementation of the technologies used by modern audio codecs.
 
 <CardGrid>
   <Card
-    subtitle="Instructions"
-    title="Installation"
-    description="Follow the quick start guide to install Documents and get up and running."
-    href="/docs/basic-setup/installation"
+    subtitle="Getting Started"
+    title="Architecture Overview"
+    description="Learn how the codec, file formats, and music player are structured."
+    href="/docs/getting-started/architecture"
   />
   <Card
-    subtitle="Setup"
-    title="Site Settings"
-    description="Configure your project layout, metadata, and SEO preferences."
-    href="/docs/basic-setup/setup"
+    subtitle="Codec"
+    title="Encoding Pipeline"
+    description="Explore the complete WAV to MUC conversion process."
+    href="/docs/codec/encoding"
   />
   <Card
-    subtitle="Support"
-    title="Rubix Studios"
-    description="Backed by Australia's leading branding, marketing, and development studio."
-    href="https://rubixstudios.com.au"
-    external={true}
+    subtitle="Codec"
+    title="Decoding Pipeline"
+    description="Understand how MUC files are reconstructed into playable audio."
+    href="/docs/codec/decoding"
   />
 </CardGrid>
 
-## Why use Documents?
+## Why use MUC?
 
-This kit was built to simplify how teams manage and publish documentation. It works across projects of all sizes—from a single 
-readme to enterprise knowledge bases.
-
-With MDX, reusable components, and Tailwind styling, it keeps your workflow efficient without compromising flexibility.
+This project was built to demonstrate the principles behind audio compression and digital signal processing. It provides a complete implementation of a custom codec, allowing developers and students to explore every stage of the encoding and decoding process.
 
 Use it for:
 
-- **Product Guides** – Setup, usage, and troubleshooting
-- **Internal Docs** – Processes, policies, and team references
-- **Technical Manuals** – APIs, SDKs, architecture walkthroughs
-
-Customize the UI and structure to match your brand or workflow—no lock-in.
+- **Audio Compression Research** – Experiment with custom encoding algorithms
+- **DSP Learning** – Understand MDCT, IMDCT, quantization, and windowing
+- **Codec Development** – Explore the architecture of modern audio codecs
+- **Educational Projects** – Learn how compressed audio formats work
 
 ## Core Features
 
-| Feature                              | Description                                                                 |
-| ------------------------------------ | --------------------------------------------------------------------------- |
-| **Write in Markdown/MDX**            | Combine Markdown with components and Mermaid.js for rich content.           |
-| **Flexible Navigation**              | Multi-level menus, page hierarchy, and auto-generated TOCs.                 |
-| **Code Support**                     | Syntax highlighting, code tabs, and one-click copy.                         |
-| **Search**                           | Fuzzy matching with highlight and instant results.                          |
-| **Responsive Design**                | Built-in light/dark mode with mobile support.                               |
-| **Math + Tables**                    | LaTeX rendering and clean table styling.                                    |
-| **SEO Defaults**                     | Preconfigured meta, Open Graph, and structured data.                        |
-| **AI Docs (Upcoming)**               | AI tools for smart search and content generation (coming soon).             |
+| Feature | Description |
+|----------|-------------|
+| **WAV Support** | Read and write standard PCM WAV files. |
+| **Custom MUC Format** | Store compressed audio using a proprietary container format. |
+| **MDCT Compression** | Transform audio into the frequency domain for compression. |
+| **IMDCT Reconstruction** | Recover PCM audio during decoding. |
+| **Hann Window Processing** | Reduce artifacts between overlapping frames. |
+| **Quantization** | Compress frequency coefficients efficiently. |
+| **Music Playback** | Play WAV, MP3, and MUC files through a unified interface. |
+| **Metadata Support** | Manage audio file information and custom headers. |
 
-## Using This Kit
+## Codec Pipeline
 
-Navigation is on the left. Pages flow from setup to advanced features, but you're free to jump around.
+The MUC codec processes audio through several stages:
 
-Use the table of contents on the right to skip through sections.
+1. Load PCM audio samples from a WAV file.
+2. Apply the Hann window function.
+3. Perform MDCT transformation.
+4. Quantize frequency coefficients.
+5. Store compressed frames in a MUC container.
+6. Reconstruct audio using IMDCT during decoding.
 
-Start with the [Installation Guide](/docs/basic-setup/installation).
+## Using This Documentation
 
-## Community Support
+Navigation is available on the left. Pages are organized by codec components, file formats, and implementation details.
 
-Got questions? Reach out via:
+Start with the [Architecture Overview](/docs/getting-started/architecture).
 
-- [GitHub](https://github.com/rubixvi/rubix-documents)
-- [Twitter](https://x.com/rubixstory)
-- [Facebook](https://www.facebook.com/rubixstudios)
+## Project Goals
+
+The primary goal of MUC is educational. The project focuses on understanding audio compression techniques and implementing them from scratch in C++.
+
+Topics covered include:
+
+- WAV File Structure
+- PCM Audio Processing
+- MDCT and IMDCT
+- Quantization
+- Overlap-Add Reconstruction
+- Custom File Formats
+- Audio Playback Systems
